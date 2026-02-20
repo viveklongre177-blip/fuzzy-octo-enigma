@@ -1,0 +1,24 @@
+import pkg from 'whatsapp-web.js';
+const { Client, LocalAuth } = pkg;
+import qrcode from 'qrcode-terminal';
+
+const client = new Client({
+    authStrategy: new LocalAuth()
+});
+
+client.on('qr', (qr) => {
+    console.log('Scan this QR code:');
+    qrcode.generate(qr, { small: true });
+});
+
+client.on('ready', () => {
+    console.log('Bot is ready 🚀');
+});
+
+client.on('message', message => {
+    if (message.body === 'hi') {
+        message.reply('Hello 👋 Vivek Bot is working!');
+    }
+});
+
+client.initialize();
